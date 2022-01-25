@@ -15,8 +15,8 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Switch>
-          <Route>
-            <Home exact path='/' />
+          <Route exact path='/' >
+            <Home />
           </Route>
           <Route path='/create'>
             <Create />
