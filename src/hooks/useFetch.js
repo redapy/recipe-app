@@ -19,11 +19,11 @@ export const useFetch = (url, method = "GET") => {
     useEffect(() => {
         const controller = new AbortController();
 
-        const fetchData = async (postOption) => {
+        const fetchData = async (postOptions) => {
             setisLoading(true);
 
             try {
-                const res = await fetch(url, {...postOption, signal: controller.signal});
+                const res = await fetch(url, {...postOptions, signal: controller.signal});
                 if (!res.ok) {
                     throw new Error(res.statusText)
                 }
@@ -31,8 +31,7 @@ export const useFetch = (url, method = "GET") => {
                 setisLoading(false);
                 setData(data);
                 setError(null);
-            }
-            catch (error) {
+            } catch (error) {
                 if (error.name === 'AbortError') {
                     console.log('fetch was aborted')
                 } else {
@@ -46,7 +45,7 @@ export const useFetch = (url, method = "GET") => {
             fetchData();
         }
 
-        if (method === "POST") {
+        if (method === "POST" && options) {
             fetchData(options);
         }
         
