@@ -1,16 +1,17 @@
 import { useHistory } from 'react-router-dom';
-import { useState } from 'react/cjs/react.development';
-import './SearchBar.css';
+import { useState } from 'react';
+import './Searchbar.css';
 
 const SearchBar = () => {
     const [term, setTerm] = useState('');
     const history = useHistory();
 
     const handleSubmit = (e) => {
-        e.prevent.default();
+        e.preventDefault();
         history.push(`/search?q=${term}`)
     }
     return ( 
+        <div className="searchbar">
         <form onSubmit={handleSubmit}>
         <label htmlFor="search">Search:</label>
         <input 
@@ -20,6 +21,7 @@ const SearchBar = () => {
           required 
         />
       </form>
+    </div>
      );
 }
  
