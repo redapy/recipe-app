@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import { useState, useRef } from "react/cjs/react.development";
+import { useState, useRef } from "react";
 import "./Create.css";
 //firestore
 import { db } from "../../firebase/config"
