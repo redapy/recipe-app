@@ -2,7 +2,7 @@ import RecipeList from "../../components/RecipeList";
 import "./Home.css";
 //firestore
 import { db } from "../../firebase/config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 const Home = () => {
@@ -12,28 +12,27 @@ const Home = () => {
 
   useEffect(() => {
     
-    const fetchRecipe = async () => {
       setisLoading(true);
       const recipesRef = collection(db, "recipes");
-      const recipeSnapshot = await getDocs(recipesRef);
-      if (recipeSnapshot.empty) {
-        setError("Can not find any Recipes");
+      const unsub = onSnapshot(recipesRef, (recipeSnapshot) => {
+        if (recipeSnapshot.empty) {
+          setError("Can not find any Recipes");
+          setisLoading(false);
+        } else {
+          let results = [];
+          recipeSnapshot.docs.forEach((doc) => {
+            results.push({ id: doc.id, ...doc.data() });
+          });
+          setData(results);
+          setisLoading(false);
+        }
+      }, error => {
+        setError(error.message);
         setisLoading(false);
-      } else {
-        let results =[];
-        recipeSnapshot.docs.forEach((doc) => {
-            results.push({id: doc.id, ...doc.data()})
-        });
-        setData(results);
-        setisLoading(false);
-      }
-    };
-    try {
-        fetchRecipe();
-    } catch (e) {
-        setError(e.message)
-    }
-    
+      });
+ 
+
+    return () => unsub()
   }, []);
   return (
     <div className="home">
