@@ -12,7 +12,7 @@ const Home = () => {
 
   useEffect(() => {
     
-    const fetchData = async () => {
+    const fetchRecipe = async () => {
       setisLoading(true);
       const recipesRef = collection(db, "recipes");
       const recipeSnapshot = await getDocs(recipesRef);
@@ -29,7 +29,7 @@ const Home = () => {
       }
     };
     try {
-        fetchData();
+        fetchRecipe();
     } catch (e) {
         setError(e.message)
     }
