@@ -13,7 +13,7 @@ const Create = () => {
   const [ingredients, setIngredients] = useState([]);
   const ingredientInput = useRef(null);
 
-  const history = useHistory()
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,15 +39,16 @@ const Create = () => {
   };
 
   return (
-    <div className="create">
+    <div className="create" data-testid='wrapper'>
       <h2 className="page-title">Add a New Recipe</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} name='form'>
         <label>
           <span>Recipe title:</span>
           <input
             type="text"
             onChange={(e) => setTitle(e.target.value)}
             value={title}
+            placeholder='Enter the recipe name...'
             required
           />
         </label>
@@ -60,6 +61,7 @@ const Create = () => {
               onChange={(e) => setNewIngredient(e.target.value)}
               value={newIngredient}
               ref={ingredientInput}
+              placeholder='Add ingredients....'
             />
             <button onClick={handleAdd} className="btn">
               add
@@ -72,6 +74,7 @@ const Create = () => {
           <textarea
             onChange={(e) => setMethod(e.target.value)}
             value={method}
+            placeholder='how to prepare it...'
             required
           />
         </label>
