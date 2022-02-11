@@ -38,7 +38,7 @@ const Create = () => {
   }, [data, history])
 
   return (
-    <div className="create">
+    <div data-testid='create-page' className="create">
       <h2 className="page-title">Add a New Recipe</h2>
       <form onSubmit={handleSubmit}>
         <label>

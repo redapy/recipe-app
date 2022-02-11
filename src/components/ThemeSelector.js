@@ -11,7 +11,7 @@ const ThemeSelector = () => {
     changeMode(mode === "dark" ? "light" : "dark");
   };
   return (
-    <div className="theme-selector">
+    <div data-testid='selector-component' className="theme-selector">
       <div className="mode-toggle">
         <img
           onClick={toggle}

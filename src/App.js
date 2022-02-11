@@ -14,7 +14,7 @@ import useTheme from './hooks/useTheme';
 function App() {
   const { mode } = useTheme();
   return (
-    <div className={`App ${mode}`}>
+    <div data-testid='app' className={`App ${mode}`}>
       <BrowserRouter>
         <Navbar />
         <ThemeSelector />
