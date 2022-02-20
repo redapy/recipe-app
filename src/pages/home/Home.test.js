@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import ThemeProvider from "../../context/ThemeContext";
+
 import Home from "./Home";
 
 const recipes = [
@@ -24,10 +25,11 @@ const recipes = [
     cookingTime: "35 minutes",
   },
 ];
+
 //define dynamic mocked variblaies
 let mockData = recipes;
 let mockIsLoading = false;
-let mockError = null; 
+let mockError = null;
 //Mock useFetch
 jest.mock("../../hooks/useFetch", () => ({
   useFetch: () => ({
@@ -37,10 +39,8 @@ jest.mock("../../hooks/useFetch", () => ({
   }),
 }));
 
-
 describe("Home Component", () => {
-  
-  //Wrapp the home component with the provider and with the router 
+  //Wrapp the home component with the provider and with the router
   const MockedHome = () => {
     return (
       <ThemeProvider>
@@ -56,19 +56,19 @@ describe("Home Component", () => {
     const recipWrapper = screen.getByTestId("recipe-component");
     expect(recipWrapper).toBeInTheDocument();
   });
-  it('Renders loading message when we stil fetching the data', () => {
+  it("Renders loading message when we stil fetching the data", () => {
     mockData = null;
     mockIsLoading = true;
-    render(<MockedHome />)
-    const loadingMessage = screen.getByText(/Loading.../i)
+    render(<MockedHome />);
+    const loadingMessage = screen.getByText(/Loading.../i);
     expect(loadingMessage).toBeInTheDocument();
-  })
+  });
   it("Renders an error message when we can not fetch the data", () => {
     mockData = null;
-    mockIsLoading= false;
-    mockError = 'could not fetch the data';
-    render(<MockedHome />)
-    const errorMessage = screen.getByText('could not fetch the data')
-    expect(errorMessage).toBeInTheDocument()
-  })
+    mockIsLoading = false;
+    mockError = "could not fetch the data";
+    render(<MockedHome />);
+    const errorMessage = screen.getByText("could not fetch the data");
+    expect(errorMessage).toBeInTheDocument();
+  });
 });
