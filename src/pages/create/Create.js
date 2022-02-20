@@ -8,39 +8,47 @@ const Create = () => {
   const [title, setTitle] = useState("");
   const [method, setMethod] = useState("");
   const [cookingTime, setCookingTime] = useState("");
-  const [ newIngredient, setNewIngredient] = useState("");
+  const [newIngredient, setNewIngredient] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const ingredientInput = useRef(null);
 
-  const {postData, data, error} = useFetch('http://localhost:3000/recipes', 'POST');
-  const history = useHistory()
+  const { postData, data, error } = useFetch(
+    "http://localhost:3000/recipes",
+    "POST"
+  );
+  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postData({ title, ingredients, method, cookingTime: cookingTime + ' minutes' })
+    postData({
+      title,
+      ingredients,
+      method,
+      cookingTime: cookingTime + " minutes",
+    });
   };
 
   const handleAdd = (e) => {
     e.preventDefault();
     const ing = newIngredient.trim();
     if (ing && !ingredients.includes(ing)) {
-        setIngredients(prev => [...prev, ing])
+      setIngredients((prev) => [...prev, ing]);
     }
-    setNewIngredient('');
+    setNewIngredient("");
     ingredientInput.current.focus();
   };
 
-// redirect the user when we get data response
+  // redirect the user when we get data response
   useEffect(() => {
     if (data) {
-      history.push('/')
+      history.push("/");
     }
-  }, [data, history])
+  }, [data, history]);
 
   return (
-    <div data-testid='create-page' className="create">
+    <div data-testid="create-page" className="create">
       <h2 className="page-title">Add a New Recipe</h2>
-      <form onSubmit={handleSubmit}>
+      <form data-testid="form" onSubmit={handleSubmit}>
         <label>
           <span>Recipe title:</span>
           <input
@@ -65,7 +73,12 @@ const Create = () => {
             </button>
           </div>
         </label>
-        <p>Current ingredients: {ingredients.map(i => <em key={i}>{i}, </em>)}</p>
+        <p>
+          Current ingredients:{" "}
+          {ingredients.map((i) => (
+            <em key={i}>{i}, </em>
+          ))}
+        </p>
         <label>
           <span>Recipe Method:</span>
           <textarea

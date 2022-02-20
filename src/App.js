@@ -1,31 +1,31 @@
 //styles
-import './App.css';
+import "./App.css";
 //Router
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 // page components
-import Navbar from './components/Navbar'
-import Home from './pages/home/Home'
-import Create from './pages/create/Create'
-import Search from './pages/search/Search'
-import Recipe from './pages/recipe/Recipe'
-import ThemeSelector from './components/ThemeSelector';
-import useTheme from './hooks/useTheme';
+import Navbar from "./components/Navbar";
+import Home from "./pages/home/Home";
+import Create from "./pages/create/Create";
+import Search from "./pages/search/Search";
+import Recipe from "./pages/recipe/Recipe";
+import ThemeSelector from "./components/ThemeSelector";
+import useTheme from "./hooks/useTheme";
 
 function App() {
   const { mode } = useTheme();
   return (
-    <div data-testid='app' className={`App ${mode}`}>
+    <div data-testid="app" className={`App ${mode}`}>
       <BrowserRouter>
         <Navbar />
         <ThemeSelector />
         <Switch>
-          <Route exact path='/' >
+          <Route exact path="/">
             <Home />
           </Route>
-          <Route path='/create'>
+          <Route path="/create">
             <Create />
           </Route>
-          <Route path='/search'>
+          <Route path="/search">
             <Search />
           </Route>
           <Route path="/recipes/:id">
@@ -33,7 +33,6 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
-
     </div>
   );
 }
