@@ -1,15 +1,14 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { createMemoryHistory } from "history";
-import { Router } from "react-router-dom";
+
+import { MemoryRouter } from "react-router-dom";
 import Create from "./Create";
 
 describe("Create component", () => {
   const MockedCreate = () => {
-    const history = createMemoryHistory();
     return (
-      <Router history={history}>
+      <MemoryRouter>
         <Create />
-      </Router>
+      </MemoryRouter>
     );
   };
   //function to add ingredients
@@ -19,6 +18,7 @@ describe("Create component", () => {
     fireEvent.change(ingredientsInput, { target: { value: ingredient } });
     fireEvent.click(addButton);
   };
+  //tests
   describe("Renders", () => {
     it("should render a create page", () => {
       render(<MockedCreate />);
