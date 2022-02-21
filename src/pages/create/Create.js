@@ -55,7 +55,6 @@ const Create = () => {
             required
           />
         </label>
-
         <label>
           <span>Recipe Ingredients:</span>
           <div className="ingredients">
@@ -84,7 +83,6 @@ const Create = () => {
             required
           />
         </label>
-
         <label>
           <span>Cooking time (minutes):</span>
           <input
@@ -94,7 +92,6 @@ const Create = () => {
             required
           />
         </label>
-
         <button className="btn">submit</button>
       </form>
     </div>
