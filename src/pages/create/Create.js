@@ -67,7 +67,6 @@ const Create = () => {
               onChange={(e) => setNewIngredient(e.target.value)}
               value={newIngredient}
               ref={ingredientInput}
-              placeholder="Add ingredients...."
             />
             <button onClick={handleAdd} className="btn">
               add
@@ -85,7 +84,6 @@ const Create = () => {
           <textarea
             onChange={(e) => setMethod(e.target.value)}
             value={method}
-            placeholder="how to prepare it..."
             required
           />
         </label>
