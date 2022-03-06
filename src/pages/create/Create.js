@@ -1,29 +1,35 @@
 import { useHistory } from "react-router-dom";
 import { useState, useRef } from "react";
+import useTheme from "../../hooks/useTheme";
 import "./Create.css";
 //firestore
-import { db } from "../../firebase/config"
-import { collection, addDoc } from "firebase/firestore"
+import { db } from "../../firebase/config";
+import { collection, addDoc } from "firebase/firestore";
 
 const Create = () => {
   const [title, setTitle] = useState("");
   const [method, setMethod] = useState("");
   const [cookingTime, setCookingTime] = useState("");
-  const [ newIngredient, setNewIngredient] = useState("");
+  const [newIngredient, setNewIngredient] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const ingredientInput = useRef(null);
 
-  const history = useHistory()
-
+  const history = useHistory();
+  const { mode } = useTheme();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const recipe = { title, ingredients, method, cookingTime: cookingTime + ' minutes' };
+    const recipe = {
+      title,
+      ingredients,
+      method,
+      cookingTime: cookingTime + " minutes",
+    };
 
     try {
-      const ref = collection(db, 'recipes');
-      await addDoc(ref, recipe)
-      history.push('/')
-    } catch(e) {
+      const ref = collection(db, "recipes");
+      await addDoc(ref, recipe);
+      history.push("/");
+    } catch (e) {
       console.log(e);
     }
   };
@@ -32,14 +38,14 @@ const Create = () => {
     e.preventDefault();
     const ing = newIngredient.trim();
     if (ing && !ingredients.includes(ing)) {
-        setIngredients(prev => [...prev, ing])
+      setIngredients((prev) => [...prev, ing]);
     }
-    setNewIngredient('');
+    setNewIngredient("");
     ingredientInput.current.focus();
   };
 
   return (
-    <div className="create">
+    <div className={`create ${mode}`}>
       <h2 className="page-title">Add a New Recipe</h2>
       <form onSubmit={handleSubmit}>
         <label>
@@ -66,7 +72,12 @@ const Create = () => {
             </button>
           </div>
         </label>
-        <p>Current ingredients: {ingredients.map(i => <em key={i}>{i}, </em>)}</p>
+        <p>
+          Current ingredients:{" "}
+          {ingredients.map((i) => (
+            <em key={i}>{i}, </em>
+          ))}
+        </p>
         <label>
           <span>Recipe Method:</span>
           <textarea
