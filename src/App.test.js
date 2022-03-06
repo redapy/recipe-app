@@ -2,12 +2,13 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import App from "./App";
 import ThemeProvider from "./context/ThemeContext";
+import { addIngredient } from "./utils";
 
 describe("App Component", () => {
   const AppWithProvider = () => {
     return (
       <ThemeProvider>
-        <MemoryRouter>
+        <MemoryRouter initialEntries={[`/`]}>
           <App />
         </MemoryRouter>
       </ThemeProvider>
@@ -55,4 +56,31 @@ describe("App Component", () => {
       expect(recipeWrapper).toBeInTheDocument();
     });
   });
+  // describe("functionality", () => {
+  //   it("should add the recipe to home page when submiting the create recipe form", async () => {
+  //     render(<AppWithProvider />);
+  //     //navigate to create page
+  //     const linkToCreate = screen.getByText("Create Recipe");
+  //     fireEvent.click(linkToCreate);
+  //     // fill the title input
+  //     const titleInput = screen.getByLabelText(/Recipe title:/i);
+  //     fireEvent.change(titleInput, { target: { value: "Couscous" } });
+  //     //add ingredients
+  //     addIngredient("potato");
+  //     addIngredient("salt");
+  //     addIngredient("carrot");
+  //     // fill the method textarea
+  //     const textArea = screen.getByLabelText(/Recipe Method:/i);
+  //     fireEvent.change(textArea, { target: { value: "bla bla bla bla" } });
+  //     //submit
+  //     const submitButton = screen.getByRole("button", { name: "submit" });
+  //     fireEvent.click(submitButton);
+  //     //we should be in the home page, reirect the user.
+  //     const homeWrapper = await screen.findByTestId("home");
+  //     expect(homeWrapper).toBeInTheDocument();
+  //     //We should find the new recipe
+  //     const newRecipe = await screen.findByText(/couscous/i);
+  //     expect(newRecipe).toBeInTheDocument();
+  //   });
+  // });
 });

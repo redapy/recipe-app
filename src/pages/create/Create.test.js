@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-
+import { addIngredient } from "../../utils";
 import { MemoryRouter } from "react-router-dom";
 import Create from "./Create";
 
@@ -11,13 +11,7 @@ describe("Create component", () => {
       </MemoryRouter>
     );
   };
-  //function to add ingredients
-  const addIngredient = (ingredient) => {
-    const ingredientsInput = screen.getByLabelText(/Recipe Ingredients:/i);
-    const addButton = screen.getByText("add");
-    fireEvent.change(ingredientsInput, { target: { value: ingredient } });
-    fireEvent.click(addButton);
-  };
+
   //tests
   describe("Renders", () => {
     it("should render a create page", () => {
@@ -42,7 +36,7 @@ describe("Create component", () => {
     });
     it("user should render a submit button", () => {
       render(<MockedCreate />);
-      const submitButton = screen.getByText("submit");
+      const submitButton = screen.getByRole("button", { name: "submit" });
       expect(submitButton).toBeInTheDocument();
     });
   });
@@ -77,10 +71,17 @@ describe("Create component", () => {
       addIngredient("potato");
       expect(p.textContent).not.toBe("Current ingredients: potato, potato,");
     });
-    it("user shoul be able to type in the method textArea", () => {
+    it("user should be able to add the cooking time", () => {
+      render(<MockedCreate />);
+      const cookingTime = screen.getByLabelText(/Cooking time/i);
+      fireEvent.change(cookingTime, { target: { value: 25 } });
+      expect(cookingTime.value).toBe("25");
+    });
+    it("user should be able to type in the method textArea", () => {
       render(<MockedCreate />);
       const textArea = screen.getByLabelText(/Recipe Method:/i);
-      expect(textArea).toBeInTheDocument();
+      fireEvent.change(textArea, { target: { value: "bla bla bla bla" } });
+      expect(textArea.value).toBe("bla bla bla bla");
     });
   });
 });
