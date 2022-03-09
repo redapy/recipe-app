@@ -6,3 +6,8 @@ export const addIngredient = (ingredient) => {
   fireEvent.change(ingredientsInput, { target: { value: ingredient } });
   fireEvent.click(addButton);
 };
+
+export const changemode = () => {
+  const modeIcone = screen.getByAltText("dark/light toggle icon");
+  fireEvent.click(modeIcone);
+};

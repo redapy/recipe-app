@@ -1,8 +1,8 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import App from "./App";
 import ThemeProvider from "./context/ThemeContext";
-import { addIngredient } from "./utils";
+import { addIngredient, changemode } from "./utils";
 
 describe("App Component", () => {
   const AppWithProvider = () => {
@@ -14,6 +14,7 @@ describe("App Component", () => {
       </ThemeProvider>
     );
   };
+
   describe("Full app rendering and Navigation", () => {
     it("Should render an app component", () => {
       render(<AppWithProvider />);
@@ -81,6 +82,29 @@ describe("App Component", () => {
       //We should find the new recipe
       const newRecipe = await screen.findByText(/couscous/i);
       expect(newRecipe).toBeInTheDocument();
+    });
+    describe("Delete a recipe", () => {
+      it("Should delete the last recipe that was added", async () => {
+        render(<AppWithProvider />);
+        const recipe = await screen.findAllByAltText("delete icon");
+        const lastItem = recipe[recipe.length - 1];
+        fireEvent.click(lastItem);
+        await waitFor(() => {
+          const deletedRecipe = screen.queryByText(/couscous/i);
+          expect(deletedRecipe).not.toBeInTheDocument();
+        });
+      });
+      describe("useReducer, dark/light mode", () => {
+        it("should change the mode for the app component", async () => {
+          render(<AppWithProvider />);
+          const appWrapper = screen.getByTestId("app");
+          //check the default mode
+          expect(appWrapper).toHaveClass("dark");
+          //change mode to light
+          changemode();
+          expect(appWrapper).toHaveClass("light");
+        });
+      });
     });
   });
 });

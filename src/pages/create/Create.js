@@ -65,7 +65,7 @@ const Create = () => {
               ref={ingredientInput}
             />
             <button onClick={handleAdd} className="btn">
-              addk
+              add
             </button>
           </div>
         </label>
