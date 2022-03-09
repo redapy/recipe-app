@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useFetch = (url, method = "GET") => {
+export const useFetch = (url, method = "GET", trigger) => {
   const [data, setData] = useState(null);
   const [isLoading, setisLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -55,7 +55,7 @@ export const useFetch = (url, method = "GET") => {
     return () => {
       controller.abort();
     };
-  }, [url, method, options]);
+  }, [url, method, options, trigger]);
 
   return { data, isLoading, error, postData };
 };

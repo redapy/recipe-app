@@ -63,10 +63,9 @@ const Create = () => {
               onChange={(e) => setNewIngredient(e.target.value)}
               value={newIngredient}
               ref={ingredientInput}
-              required
             />
             <button onClick={handleAdd} className="btn">
-              add
+              addk
             </button>
           </div>
         </label>
