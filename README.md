@@ -34,3 +34,5 @@ I learned a lot of things while building this is an app, but here is the most im
 4. use `npm run test` to run all the test suits
 5. Enjoy playing around
 - for more information  please refer to [react-app](/react-app.md)
+## try it !
+https://recipes-app-de234.web.app/
